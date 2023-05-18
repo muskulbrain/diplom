@@ -1,0 +1,9 @@
+/target/
+/build/
+*.log
+*.iml
+.idea/workspace.xml
+.idea/
+.selenide-tests.iml
+/allure-results
+.allure
