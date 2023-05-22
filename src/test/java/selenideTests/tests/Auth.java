@@ -5,30 +5,33 @@ import selenideTests.common.TestBase;
 import selenideTests.pages.AuthPage;
 
 
-
 public class Auth extends TestBase {
 
     @Test
     public void authByContract() {
+        AuthPage authPage = new AuthPage();
 
-        AuthPage.openBase();
-        AuthPage.clickUserBar();
-        AuthPage.clickLogin();
-        AuthPage.loginByEmailOrContract();
-        AuthPage.setContract();
-        AuthPage.setPassword();
-        AuthPage.clickLoginButton();
+        authPage
+                .openBase()
+                .clickUserBar()
+                .clickLogin()
+                .loginByEmailOrContract()
+                .setContract()
+                .setPassword()
+                .clickLoginButton();
     }
 
     @Test
     public void authByEmail() {
-        AuthPage.openBase();
-        AuthPage.clickUserBar();
-        AuthPage.clickLogin();
-        AuthPage.loginByEmailOrContract();
-        AuthPage.setEmail();
-        AuthPage.setPassword();
-        AuthPage.clickLoginButton();
+        AuthPage authPage = new AuthPage();
+
+        authPage.openBase()
+                .clickUserBar()
+                .clickLogin()
+                .loginByEmailOrContract()
+                .setEmail()
+                .setPassword()
+                .clickLoginButton();
     }
 
 }
