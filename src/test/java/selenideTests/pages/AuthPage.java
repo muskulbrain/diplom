@@ -3,36 +3,12 @@ package selenideTests.pages;
 import io.qameta.allure.Step;
 import selenideTests.common.TestBase;
 
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.*;
+import static selenideTests.common.Constants.*;
 
 public class AuthPage extends TestBase {
 
-    @Step("Открытие главной страницы магазина")
-    public AuthPage openBase() {
-        open(baseUrl);
-        sleep(1000);
-        closeCookiesPopup();
-        closeLocationPopup("Да, всё верно");
-        return this;
-    }
-
-    @Step("Закрытие окна с cookies")
-    public AuthPage closeCookiesPopup() {
-        $(".cookies-overlay__text").is(visible);
-        $(".cookies-overlay__button").click();
-        return this;
-    }
-
-    @Step("Закрытие окна геолокации")
-    public AuthPage closeLocationPopup(String text) {
-        if ($(".location-overlay__buttons-wrapper").is(visible)) {
-            $(".location-overlay__button").shouldHave(text(text)).click();
-        }
-        return this;
-    }
 
     @Step("Клик по иконке неавторизованного пользователя")
     public AuthPage clickUserBar() {
@@ -54,12 +30,12 @@ public class AuthPage extends TestBase {
     }
 
     public AuthPage setContract() {
-        $$(".sw-input__value_placeholder").first().setValue("2599649622");
+        $$(".sw-input__value_placeholder").first().setValue(CONTRACT);
         return this;
     }
 
     public AuthPage setPassword() {
-        $$(".sw-input__value_placeholder").get(1).setValue("76773");
+        $$(".sw-input__value_placeholder").get(1).setValue(PASSWORD);
         return this;
     }
 
@@ -71,7 +47,7 @@ public class AuthPage extends TestBase {
     }
 
     public AuthPage setEmail() {
-        $$(".sw-input__value_placeholder").first().setValue("poydeciyde@gufum.com");
+        $$(".sw-input__value_placeholder").first().setValue(EMAIL);
         return this;
     }
 }

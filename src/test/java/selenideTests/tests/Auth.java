@@ -7,13 +7,14 @@ import selenideTests.pages.AuthPage;
 
 public class Auth extends TestBase {
 
+    //Авторизация по номеру контракта
     @Test
     public void authByContract() {
         AuthPage authPage = new AuthPage();
 
-        authPage
-                .openBase()
-                .clickUserBar()
+        openBase();
+
+        authPage.clickUserBar()
                 .clickLogin()
                 .loginByEmailOrContract()
                 .setContract()
@@ -21,12 +22,14 @@ public class Auth extends TestBase {
                 .clickLoginButton();
     }
 
+    //Авторизация по почте
     @Test
     public void authByEmail() {
         AuthPage authPage = new AuthPage();
 
-        authPage.openBase()
-                .clickUserBar()
+        openBase();
+
+        authPage.clickUserBar()
                 .clickLogin()
                 .loginByEmailOrContract()
                 .setEmail()
