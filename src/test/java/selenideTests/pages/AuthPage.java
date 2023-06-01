@@ -50,5 +50,28 @@ public class AuthPage extends TestBase {
         $$(".sw-input__value_placeholder").first().setValue(EMAIL);
         return this;
     }
+
+    @Step("Выбор Войти из контактных данных")
+    public AuthPage chooseLoginFromContactDetails() {
+        $("[data-qa='ORDER_CARD_TITLE_LOGIN']").click();
+        sleep(1000);
+        return this;
+    }
+
+    @Step("Ввод контракта и пароля при быстрой авторизации ")
+    public AuthPage setUser() {
+        setValueForFieldWithName("contractOrEmail", CONTRACT);
+        setValueForFieldWithName("password", PASSWORD);
+        return this;
+    }
+
+    @Step("Объединение корзин при авторизации")
+    public AuthPage unionCarts() {
+        sleep(2000);
+        if ($(".merge-carts-modal").isDisplayed()) {
+            $$(".merge-carts-modal__remove-button").first().click();
+        }
+        return this;
+    }
 }
 

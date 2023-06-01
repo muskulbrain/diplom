@@ -5,11 +5,13 @@ import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.WebElement;
+import selenideTests.pages.AuthPage;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.*;
+import static selenideTests.common.Constants.TOKEN;
 
 public class TestBase {
 
@@ -43,14 +45,28 @@ public class TestBase {
         return this;
     }
 
+    //Быстрая авторизация в оформлении заказа
+    public static AuthPage getAuthPage(AuthPage authPage) {
+        return authPage.
+                chooseLoginFromContactDetails()
+                .loginByEmailOrContract()
+                .setUser()
+                .clickLoginButton()
+                .unionCarts();
+    }
+
     @Step("Подставляем токен")
     public TestBase setToken() {
-        Cookie ck = new Cookie("token", Constants.TOKEN);
+        Cookie ck = new Cookie("token", TOKEN);
         WebDriverRunner.getWebDriver().manage().addCookie(ck);
         refresh();
         sleep(2000);
         return this;
     }
 
-
+    protected void setValueForFieldWithName(String placeholder, String value) {
+        $$(".sw-input__value_placeholder").filter(visible).find(name(placeholder)).scrollIntoView(false).click();
+        WebElement focusedElement = getFocusedElement();
+        focusedElement.sendKeys(value);
+    }
 }
