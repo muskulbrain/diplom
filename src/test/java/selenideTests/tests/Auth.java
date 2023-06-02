@@ -13,9 +13,9 @@ public class Auth extends TestBase {
         AuthPage authPage = new AuthPage();
 
         openBase();
+        clickUserBar();
 
-        authPage.clickUserBar()
-                .clickLogin()
+        authPage.clickLogin()
                 .loginByEmailOrContract()
                 .setContract()
                 .setPassword()
@@ -28,9 +28,9 @@ public class Auth extends TestBase {
         AuthPage authPage = new AuthPage();
 
         openBase();
+        clickUserBar();
 
-        authPage.clickUserBar()
-                .clickLogin()
+        authPage.clickLogin()
                 .loginByEmailOrContract()
                 .setEmail()
                 .setPassword()

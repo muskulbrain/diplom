@@ -9,13 +9,6 @@ import static selenideTests.common.Constants.*;
 
 public class AuthPage extends TestBase {
 
-
-    @Step("Клик по иконке неавторизованного пользователя")
-    public AuthPage clickUserBar() {
-        $("[data-qa='HEADER_PROFILE']").click();
-        return this;
-    }
-
     @Step("Клик на Вход")
     public AuthPage clickLogin() {
         $("[data-qa='VLOGIN_REGISTRATION_BAR_LOGIN_LINK']").click();
@@ -73,5 +66,7 @@ public class AuthPage extends TestBase {
         }
         return this;
     }
+
+
 }
 

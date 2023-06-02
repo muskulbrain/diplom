@@ -69,4 +69,10 @@ public class TestBase {
         WebElement focusedElement = getFocusedElement();
         focusedElement.sendKeys(value);
     }
+
+    @Step("Клик по иконке пользователя")
+    public TestBase clickUserBar() {
+        $("[data-qa='HEADER_PROFILE']").click();
+        return this;
+    }
 }
