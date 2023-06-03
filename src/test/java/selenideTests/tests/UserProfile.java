@@ -2,7 +2,6 @@ package selenideTests.tests;
 
 import org.junit.jupiter.api.Test;
 import selenideTests.common.TestBase;
-import selenideTests.pages.AuthPage;
 import selenideTests.pages.UserPage;
 
 
@@ -12,16 +11,10 @@ public class UserProfile extends TestBase {
     @Test
     public void addNewAddress() {
         UserPage userPage = new UserPage();
-        AuthPage authPage = new AuthPage();
 
         openBase();
-        clickUserBar();
 
-        authPage.clickLogin()
-                .loginByEmailOrContract()
-                .setContract()
-                .setPassword()
-                .clickLoginButton();
+        loginUserByRest();
 
         clickUserBar();
 
@@ -38,17 +31,9 @@ public class UserProfile extends TestBase {
     @Test
     public void logoutFromUserMenu() {
         UserPage userPage = new UserPage();
-        AuthPage authPage = new AuthPage();
 
         openBase();
-        clickUserBar();
-
-        authPage.clickLogin()
-                .loginByEmailOrContract()
-                .setContract()
-                .setPassword()
-                .clickLoginButton();
-
+        loginUserByRest();
         clickUserBar();
 
         userPage

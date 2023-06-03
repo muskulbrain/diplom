@@ -69,7 +69,7 @@ public class UserPage extends TestBase {
         return this;
     }
 
-    @Step("Проверка удаление адреса")
+    @Step("Проверка удаления адреса")
     public UserPage checkDeleteAddress() {
         $("#sw-snackbar-delete-address").shouldBe(visible);
         $(".profile-delivery-address__no-addresses").shouldHave(text("У вас пока нет сохраненных адресов"));

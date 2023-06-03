@@ -8,17 +8,20 @@ import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebElement;
 import selenideTests.pages.AuthPage;
 
+import java.time.Duration;
+
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.*;
 import static selenideTests.common.Constants.TOKEN;
+import static selenideTests.pages.API_Step.authorize;
 
 public class TestBase {
 
     @BeforeAll
     public static void beforeAllMethod() {
         Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://kz.siberianwellness.com/kz-ru/";
+        Configuration.baseUrl = "https://kz.siberianwellness.com";
     }
 
     @Step("Открытие главной страницы магазина")
@@ -75,4 +78,20 @@ public class TestBase {
         $("[data-qa='HEADER_PROFILE']").click();
         return this;
     }
+
+    private void loginByRest() {
+        String token = authorize();
+        WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("token", token));
+        refresh();
+        sleep(2000);
+    }
+
+    @Step("Быстрая авторизация по rest")
+    public TestBase loginUserByRest() {
+        loginByRest();
+        $("[data-qa='VUSERBAR_NAME']").shouldBe(visible.because("Тест не смог авторизоваться через REST"), Duration.ofSeconds(5));
+        return this;
+    }
+
+
 }

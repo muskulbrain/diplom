@@ -21,13 +21,13 @@ dependencies {
 
 allure {
     report {
-        version.set("2.21.0")
+        version.set("2.22.1")
     }
     adapter {
         aspectjWeaver.set(true)
         frameworks {
             junit5 {
-                adapterVersion.set("2.21.0")
+                adapterVersion.set("2.22.1")
             }
         }
     }
@@ -39,7 +39,7 @@ dependencies {
             "com.codeborne:selenide:6.13.0",
             "org.junit.jupiter:junit-jupiter:5.9.2",
             "com.github.javafaker:javafaker:1.0.2",
-            "io.qameta.allure:allure-selenide:2.21.0",
+            "io.qameta.allure:allure-selenide:2.22.1",
             "org.slf4j:slf4j-simple:2.0.6",
             "io.github.bonigarcia:webdrivermanager:5.3.2")
 }
