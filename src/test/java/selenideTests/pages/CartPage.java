@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class CartPage extends TestBase {
     @Step("Переход на страницу товара")
     public CartPage goToProduct() {
-        open(baseUrl + "pr/novomin-500020/");
+        open(baseUrl + "/kz-ru/pr/novomin-500020/");
         return this;
     }
 

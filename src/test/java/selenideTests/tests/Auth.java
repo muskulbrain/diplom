@@ -1,10 +1,13 @@
 package selenideTests.tests;
 
+import io.qameta.allure.Feature;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import selenideTests.common.TestBase;
 import selenideTests.pages.AuthPage;
 
-
+@Feature("Авторизация")
+@Tag("Auth")
 public class Auth extends TestBase {
 
     //Авторизация по номеру контракта

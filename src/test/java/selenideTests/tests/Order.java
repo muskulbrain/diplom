@@ -1,12 +1,16 @@
 package selenideTests.tests;
 
 
+import io.qameta.allure.Feature;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import selenideTests.common.TestBase;
 import selenideTests.pages.AuthPage;
 import selenideTests.pages.CartPage;
 import selenideTests.pages.OrderPage;
 
+@Feature("Оформление заказа")
+@Tag("Order")
 public class Order extends TestBase {
 
     //Тест оформления заказа самовывозом

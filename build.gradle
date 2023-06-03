@@ -51,3 +51,36 @@ test {
 compileTestJava {
     options.encoding = 'UTF-8'
 }
+
+/*tasks.withType(Test) {
+    useJUnitPlatform()
+    systemProperties(System.getProperties())
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}*/
+
+task Auth_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("Auth")
+    }
+}
+task Cart_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("Cart")
+    }
+}
+task Order_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("Order")
+    }
+}
+task User_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("User")
+    }
+}

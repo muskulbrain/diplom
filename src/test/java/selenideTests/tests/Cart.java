@@ -1,10 +1,14 @@
 package selenideTests.tests;
 
+import io.qameta.allure.Feature;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import selenideTests.common.TestBase;
 import selenideTests.pages.API_Step;
 import selenideTests.pages.CartPage;
 
+@Feature("Корзина")
+@Tag("Cart")
 public class Cart extends TestBase {
 
 
