@@ -30,6 +30,7 @@ public class CartPage extends TestBase {
     public CartPage gotoBasket() {
         $(".header__cart").click();
         $(".sw-workSpace-backdrop__modal a[href*='/cart']").click();
+        sleep(3000);
         return this;
     }
 
