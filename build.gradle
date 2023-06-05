@@ -76,3 +76,9 @@ task User_test(type: Test) {
         includeTags("User")
     }
 }
+task All_tests(type: Test) {
+    useJUnitPlatform {
+        includeTags("All")
+    }
+}
+

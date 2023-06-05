@@ -9,6 +9,7 @@ import selenideTests.pages.CartPage;
 
 @Feature("Корзина")
 @Tag("Cart")
+@Tag("All")
 public class Cart extends TestBase {
 
 

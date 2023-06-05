@@ -9,6 +9,7 @@ import selenideTests.pages.AuthPage;
 
 @Feature("Авторизация")
 @Tag("Auth")
+@Tag("All")
 public class Auth extends TestBase {
 
     //Авторизация по номеру контракта
