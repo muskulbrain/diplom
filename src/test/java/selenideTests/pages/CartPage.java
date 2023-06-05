@@ -17,7 +17,6 @@ public class CartPage extends TestBase {
     @Step("Добавление товара в корзину")
     public CartPage addProductToCart() {
         $$(".cart-button__cart").first().click();
-        sleep(3000);
         return this;
     }
 
@@ -30,6 +29,7 @@ public class CartPage extends TestBase {
     @Step("Переход в корзину")
     public CartPage gotoBasket() {
         $(".header__cart").click();
+        sleep(3000);
         $(".sw-workSpace-backdrop__modal a[href*='/cart']").click();
         return this;
     }
