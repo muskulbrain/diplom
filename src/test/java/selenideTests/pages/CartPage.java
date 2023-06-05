@@ -17,6 +17,7 @@ public class CartPage extends TestBase {
     @Step("Добавление товара в корзину")
     public CartPage addProductToCart() {
         $$(".cart-button__cart").first().click();
+        sleep(5000);
         return this;
     }
 
