@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import selenideTests.common.TestBase;
 import selenideTests.pages.AuthPage;
 
+
 @Feature("Авторизация")
 @Tag("Auth")
 public class Auth extends TestBase {
@@ -26,7 +27,7 @@ public class Auth extends TestBase {
     }
 
     //Авторизация по почте
-    /*@Test
+    @Test
     public void authByEmail() {
         AuthPage authPage = new AuthPage();
 
@@ -39,7 +40,7 @@ public class Auth extends TestBase {
                 .setPassword()
                 .clickLoginButton();
     }
-*/
+
 }
 
 

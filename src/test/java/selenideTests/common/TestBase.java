@@ -1,9 +1,13 @@
 package selenideTests.common;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebElement;
 import selenideTests.pages.AuthPage;
@@ -13,6 +17,7 @@ import java.time.Duration;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.clearBrowserCache;
 import static selenideTests.common.Constants.TOKEN;
 import static selenideTests.pages.API_Step.authorize;
 
@@ -25,6 +30,22 @@ public class TestBase {
         Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
         Configuration.browserVersion = System.getProperty("browserVersion", "100.0");
         Configuration.remote = "https://user1:1234@" + System.getProperty("selenoidAddress", "selenoid.autotests.cloud/wd/hub");
+    }
+
+    @AfterAll
+    public static void tearDownAll() {
+        WebDriverRunner.closeWebDriver();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        Selenide.closeWebDriver();
+    }
+
+    @BeforeEach
+    public void clearCache() {
+        clearBrowserCache();
+        clearBrowserCookies();
     }
 
     @Step("Открытие главной страницы магазина")
