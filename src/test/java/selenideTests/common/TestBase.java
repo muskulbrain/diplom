@@ -20,8 +20,11 @@ public class TestBase {
 
     @BeforeAll
     public static void beforeAllMethod() {
-        Configuration.browserSize = "1920x1080";
-        Configuration.baseUrl = "https://kz.siberianwellness.com";
+        Configuration.baseUrl = System.getProperty("baseUrl", "https://kz.siberianwellness.com");
+        Configuration.browser = System.getProperty("browser", "chrome");
+        Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
+        Configuration.browserVersion = System.getProperty("browserVersion", "100.0");
+        Configuration.remote = "https://user1:1234@" + System.getProperty("selenoidAddress", "selenoid.autotests.cloud/wd/hub");
     }
 
     @Step("Открытие главной страницы магазина")
