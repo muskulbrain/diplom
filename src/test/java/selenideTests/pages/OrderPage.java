@@ -22,6 +22,7 @@ public class OrderPage {
 
     @Step("Выбор службы доставки Самовывоз")
     public OrderPage chooseSelfDeliveryMethod() {
+        sleep(5000);
         $("[data-qa='pickup']").shouldBe(visible.because("Самовывоз не подгрузился"), Duration.ofSeconds(3));
         $("[data-qa='pickup']").click();
         $("[data-qa='pickup']").shouldNotBe(visible.because("Не выбран Самовывоз"));
