@@ -11,6 +11,7 @@ import selenideTests.pages.OrderPage;
 
 @Feature("Оформление заказа")
 @Tag("Order")
+@Tag("All")
 public class Order extends TestBase {
 
     //Тест оформления заказа самовывозом

@@ -8,6 +8,7 @@ import selenideTests.pages.UserPage;
 
 @Feature("Личный кабинет")
 @Tag("User")
+@Tag("All")
 public class UserProfile extends TestBase {
 
     //Добавление адреса доставки в ЛК
