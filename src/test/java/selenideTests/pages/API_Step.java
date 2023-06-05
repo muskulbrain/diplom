@@ -16,7 +16,7 @@ public class API_Step extends TestBase {
 
     @Step("Добавление товара в корзину")
     public static API_Step addProductAPI() {
-        String body = "{\"CartId\":1344793,\"CartPackageId\":1170893,\"ProductId\":16492,\"Quantity\":1}";
+        String body = "{\"CartId\":1362419,\"CartPackageId\":1188994,\"ProductId\":16492,\"Quantity\":1}";
 
         RequestSpecification request = given();
         Header Token = new Header("token", Constants.TOKEN);

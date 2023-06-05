@@ -26,6 +26,7 @@ public class Cart extends TestBase {
     }
 
     //Тест удаления товара и проверка, что корзина пуста
+
     @Test
     public void IncreaseProductInCart() {
         CartPage cartPage = new CartPage();
@@ -39,6 +40,5 @@ public class Cart extends TestBase {
                 .deleteProduct()
                 .checkDeleteProduct();
     }
-
 
 }
