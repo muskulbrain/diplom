@@ -25,6 +25,7 @@ public class OrderPage {
         if ($(".order-step-title__number.order-step-title__number_success").is(visible)) {
             $(".delivery-selector__items>.delivery-selector__link").click();
         }
+        sleep(3000);
         $("[data-qa='pickup']").shouldBe(visible.because("Самовывоз не подгрузился"), Duration.ofSeconds(3));
         $("[data-qa='pickup']").click();
         $("[data-qa='pickup']").shouldNotBe(visible.because("Не выбран Самовывоз"));

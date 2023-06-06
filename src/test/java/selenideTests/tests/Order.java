@@ -23,12 +23,16 @@ public class Order extends TestBase {
 
         openBase();
 
-        cartPage.goToProduct()
+        /*cartPage.goToProduct()
                 .addProductToCart()
-                .gotoBasket();
+                .gotoBasket();*/
 
+        loginUserByRest();
+        addProductByRest();
+
+        cartPage.gotoBasket();
         orderPage.makeOrder();
-        getAuthPage(authPage);
+        //getAuthPage(authPage);
 
         orderPage
                 .chooseSelfDeliveryMethod()
