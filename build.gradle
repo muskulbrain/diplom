@@ -44,7 +44,7 @@ compileTestJava {
     options.encoding = 'UTF-8'
 }
 
-/*tasks.withType(Test) {
+tasks.withType(Test) {
     useJUnitPlatform()
     systemProperties(System.getProperties())
 
@@ -54,7 +54,7 @@ compileTestJava {
             exceptionFormat "short"
         }
     }
-}*/
+}
 
 task Auth_test(type: Test) {
     useJUnitPlatform {
