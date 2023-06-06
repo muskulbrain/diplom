@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import selenideTests.pages.API_Step;
 import selenideTests.pages.AuthPage;
 
 import java.time.Duration;
@@ -22,10 +23,10 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.clearBrowserCache;
-import static selenideTests.common.Constants.TOKEN;
-import static selenideTests.pages.API_Step.authorize;
 
 public class TestBase {
+
+    public static String token = API_Step.returnToken();
 
     @BeforeAll
     public static void beforeAllMethod() {
@@ -58,14 +59,6 @@ public class TestBase {
         //Attach.browserConsoleLogs();
         //Attach.addVideo();
     }
-
-    /*@AfterEach
-    void addAttachments() {
-        Attach.screenshotAs("Last screenshot");
-        Attach.pageSource();
-        Attach.browserConsoleLogs();
-        Attach.addVideo();
-    }*/
 
     @BeforeEach
     public void clearCache() {
@@ -113,8 +106,8 @@ public class TestBase {
     }
 
     @Step("Подставляем токен")
-    public TestBase setToken() {
-        Cookie ck = new Cookie("token", TOKEN);
+    public TestBase setToken(String token) {
+        Cookie ck = new Cookie("token", token);
         WebDriverRunner.getWebDriver().manage().addCookie(ck);
         refresh();
         sleep(2000);
@@ -134,10 +127,10 @@ public class TestBase {
     }
 
     private void loginByRest() {
-        String token = authorize();
-        WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("token", token));
+        API_Step.authorize(TestBase.token);
+        WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("token", TestBase.token));
         refresh();
-        sleep(2000);
+        sleep(5000);
     }
 
     @Step("Быстрая авторизация по rest")
@@ -147,5 +140,11 @@ public class TestBase {
         return this;
     }
 
+    @Step
+    public TestBase addProductByRest() {
+        API_Step.addProductAPI();
+        refresh();
+        return this;
+    }
 
 }

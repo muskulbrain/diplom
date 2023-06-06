@@ -1,11 +1,9 @@
 package selenideTests.tests;
 
 import io.qameta.allure.Feature;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import selenideTests.common.TestBase;
-import selenideTests.pages.API_Step;
 import selenideTests.pages.CartPage;
 
 @Feature("Корзина")
@@ -27,20 +25,17 @@ public class Cart extends TestBase {
     }
 
     //Тест удаления товара и проверка, что корзина пуста
-
     @Test
-    @Disabled
     public void IncreaseProductInCart() {
         CartPage cartPage = new CartPage();
 
         openBase();
-        API_Step.addProductAPI();
-        setToken();
+        loginUserByRest();
+        addProductByRest();
 
         cartPage
                 .gotoBasket()
                 .deleteProduct()
                 .checkDeleteProduct();
     }
-
 }

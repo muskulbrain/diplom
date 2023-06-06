@@ -18,9 +18,7 @@ public class UserProfile extends TestBase {
         UserPage userPage = new UserPage();
 
         openBase();
-
         loginUserByRest();
-
         clickUserBar();
 
         userPage
