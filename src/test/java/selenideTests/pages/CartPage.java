@@ -29,8 +29,8 @@ public class CartPage extends TestBase {
 
     @Step("Переход в корзину")
     public CartPage gotoBasket() {
-        $(".header__cart").click();
         sleep(3000);
+        $(".header__cart").click();
         $(".sw-workSpace-backdrop__modal a[href*='/cart']").click();
         return this;
     }
