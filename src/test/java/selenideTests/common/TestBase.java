@@ -53,15 +53,19 @@ public class TestBase {
     @AfterEach
     public void tearDown() {
         Selenide.closeWebDriver();
-    }
-
-    @AfterEach
-    void addAttachments() {
         Attach.screenshotAs("Last screenshot");
         Attach.pageSource();
         Attach.browserConsoleLogs();
         Attach.addVideo();
     }
+
+    /*@AfterEach
+    void addAttachments() {
+        Attach.screenshotAs("Last screenshot");
+        Attach.pageSource();
+        Attach.browserConsoleLogs();
+        Attach.addVideo();
+    }*/
 
     @BeforeEach
     public void clearCache() {
