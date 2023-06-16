@@ -1,6 +1,7 @@
 package selenideTests.pages;
 
 import com.codeborne.selenide.Configuration;
+import com.jayway.jsonpath.JsonPath;
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.Header;
@@ -18,6 +19,7 @@ public class API_Step extends TestBase {
     public static int cartPackageId = 0;
 
 
+    // Получить и записать переменные корзины
     public static void FillCartData() {
         Response response = given().spec(returnRequest(TestBase.token))
                 .when().get("https://kz.siberianwellness.com/api/v1/cart")
@@ -51,6 +53,7 @@ public class API_Step extends TestBase {
         return null;
     }
 
+    //Подставить токен и авторизоваться
     public static void authorize(String token) {
         String postData =
                 "{\n" +
@@ -67,6 +70,7 @@ public class API_Step extends TestBase {
                 .statusCode(201);
     }
 
+    //Вернуть токен
     public static String returnToken() {
         String token = "";
         token = given().spec(returnRequest(""))
@@ -80,11 +84,29 @@ public class API_Step extends TestBase {
         return token;
     }
 
+    //Вернуть подготовленный объект
     public static RequestSpecification returnRequest(String token) {
         RequestSpecification request = new RequestSpecBuilder()
                 .addHeader("token", token)
                 .build();
         return request;
+    }
+
+    //Вернуть объект city по id города
+    public static String returnCity(String CityId) {
+        String string = "";
+        String response = given().spec(returnRequest(token))
+                .when().get(Configuration.baseUrl + "/api/v1/city/" + 272)
+                .then()
+                .log().all()
+                .contentType(JSON)
+                .assertThat()
+                .statusCode(200)
+                .extract().response().asString();
+        //string = response.body();
+        String city = JsonPath.read(response, "$.Model").toString();
+        return city;
+
     }
 
 }

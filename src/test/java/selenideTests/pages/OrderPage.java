@@ -4,8 +4,7 @@ import io.qameta.allure.Step;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.exist;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.sleep;
 
@@ -22,10 +21,13 @@ public class OrderPage {
 
     @Step("Выбор службы доставки Самовывоз")
     public OrderPage chooseSelfDeliveryMethod() {
+        sleep(3000);
         if ($(".order-step-title__number.order-step-title__number_success").is(visible)) {
             $(".delivery-selector__items>.delivery-selector__link").click();
         }
         sleep(3000);
+        $(".delivery-selector__items>.delivery-selector__link").click();
+
         $("[data-qa='pickup']").shouldBe(visible.because("Самовывоз не подгрузился"), Duration.ofSeconds(3));
         $("[data-qa='pickup']").click();
         $("[data-qa='pickup']").shouldNotBe(visible.because("Не выбран Самовывоз"));
@@ -34,9 +36,10 @@ public class OrderPage {
 
     @Step("Выбор пункта самовывоза")
     public OrderPage setSelfDeliveryPoint() {
-        $(".map-selector").shouldBe(visible.because("Не открылась карта выбора ПВЗ"));
+        $(".map-selector").shouldBe(visible);
         $(".map-selector__select-btn").shouldBe(visible.because("Нет кнопки выбора пункта самовывоза"), Duration.ofSeconds(3));
         $(".map-selector__select-btn").click();
+        $(".map-selector__address-item").shouldHave(text("Выбрать")).click();
         return this;
     }
 

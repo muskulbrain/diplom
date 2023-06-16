@@ -28,6 +28,7 @@ public class TestBase {
 
     public static String token = API_Step.returnToken();
 
+
     @BeforeAll
     public static void beforeAllMethod() {
         Configuration.baseUrl = System.getProperty("baseUrl", "https://kz.siberianwellness.com");
