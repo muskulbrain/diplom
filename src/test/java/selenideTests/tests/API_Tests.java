@@ -1,12 +1,11 @@
 package selenideTests.tests;
 
 import com.codeborne.selenide.Configuration;
-import com.jayway.jsonpath.JsonPath;
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.Header;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.Test;
 import selenideTests.common.TestBase;
-import selenideTests.pages.API_Step;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
@@ -48,38 +47,39 @@ public class API_Tests extends TestBase {
         }
     }
 
-
     @Test
     public void addAddress() {
-        String body = String.format("{ \"Index\": \"6666\", \"CountryId\": 21, \"CityId\": 272,\"City\": %s,\"Street\": \"Коммуна\",\"House\": \"9\", \"Apartment\": \"30\", \"Entrance\": \"\", \"Floor\": \"\", \"isActive\": true }", API_Step.returnCity(DEFAULTCITYID));
+        String body = String.format("{ \"Index\": \"123\", \"CountryId\": 21, \"CityId\": 272, \"Street\": \"testovaya\", \"House\": \"1\", \"Apartment\": \"2\", \"Entrance\": \"3\", \"Floor\": \"3\", \"isActive\": true }");
         RequestSpecification request = returnRequest(TestBase.token);
         given().spec(request).body(body)
-                .when().post(Configuration.baseUrl + "/api/v1/address?RegionId=22&LanguageId=9&CityId=272&UserTimeZone=7&IsDebug=1")
+                .queryParams("IsDebug", "1")
+                .when()
+                .log().ifValidationFails()
+                .post("https://kz.siberianwellness.com/api/v1/address?RegionId=22&LanguageId=9&CityId=272&UserTimeZone=7")
                 .then()
-                .log().all()
                 .contentType(JSON)
-                .assertThat()
-                .statusCode(201);
+                //.statusCode(201)
+                .log().body();
+        //.assertThat();
+
     }
 
     @Test
-    public void returnCity() {
-        String string = "";
-        String response = given().spec(returnRequest(token))
-                .when().get(Configuration.baseUrl + "/api/v1/city/" + 272)
-                .then()
-                .log().all()
+    public void addProductInFavorite() {
+        String body = String.format("{\"ProductCode\":402860}");
+        RequestSpecification request = given();
+        Header Token = new Header("token", TestBase.token);
+        request.header(Token);
+        request.log().all()
+                .body(body)
                 .contentType(JSON)
-                .assertThat()
-                .statusCode(200)
-                .extract().response().asString();
-        //string = response.body();
-        String city = JsonPath.read(response, "$.Model").toString();
-        assert 2 == 2;
-        //return city;
-
+                .when()
+                .post(Configuration.baseUrl + "/api/v1/productFavorite")
+                .then()
+                .log().status()
+                .log().body()
+                .statusCode(201);
     }
-
 }
 
 

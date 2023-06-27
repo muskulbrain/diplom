@@ -1,7 +1,6 @@
 package selenideTests.pages;
 
 import com.codeborne.selenide.Configuration;
-import com.jayway.jsonpath.JsonPath;
 import io.qameta.allure.Step;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.Header;
@@ -76,7 +75,7 @@ public class API_Step extends TestBase {
         token = given().spec(returnRequest(""))
                 .when().get("https://kz.siberianwellness.com/api/v1/myValidToken")
                 .then()
-                .log().all()
+                .log().ifError()
                 .contentType(JSON)
                 .assertThat()
                 .statusCode(201)
@@ -93,20 +92,22 @@ public class API_Step extends TestBase {
     }
 
     //Вернуть объект city по id города
-    public static String returnCity(String CityId) {
+    /*public void String returnCity(String CityId) {
         String string = "";
         String response = given().spec(returnRequest(token))
-                .when().get(Configuration.baseUrl + "/api/v1/city/" + 272)
+                .when().get("https://kz.siberianwellness.com/api/v1/city/272")
                 .then()
                 .log().all()
                 .contentType(JSON)
                 .assertThat()
                 .statusCode(200)
-                .extract().response().asString();
+                .extract().body().jsonPath().getObject("Model", Pojo.class).toString();
+                //response().asString();
         //string = response.body();
-        String city = JsonPath.read(response, "$.Model").toString();
-        return city;
+        //String city = response.body.jsonPath().getObject("Model", Pojo.class).toString();
+                //JsonPath.read(response, "$.Model").toString();
+        //return city;
 
     }
-
+*/
 }

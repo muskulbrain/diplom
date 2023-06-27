@@ -33,7 +33,8 @@ dependencies {
             "org.junit.jupiter:junit-jupiter:5.9.3",
             "io.qameta.allure:allure-selenide:2.22.1",
             "org.slf4j:slf4j-simple:2.0.6",
-            "com.jayway.jsonpath:json-path:2.8.0",
+            "com.fasterxml.jackson.core:jackson-databind:2.15.2",
+            "org.projectlombok:lombok:1.18.28",
             "io.github.bonigarcia:webdrivermanager:5.3.3")
 }
 

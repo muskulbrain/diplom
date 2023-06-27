@@ -20,7 +20,6 @@ import java.time.Duration;
 import java.util.Map;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Configuration.baseUrl;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.clearBrowserCache;
 
@@ -74,7 +73,7 @@ public class TestBase {
 
     @Step("Открытие главной страницы магазина")
     public TestBase openBase() {
-        open(baseUrl);
+        open("https://kz.siberianwellness.com/kz-ru/");
         sleep(1000);
         closeCookiesPopup();
         closeLocationPopup("Да, всё верно");

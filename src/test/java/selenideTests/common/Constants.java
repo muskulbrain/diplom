@@ -8,6 +8,5 @@ public class Constants {
     public static final String WRONGPASSWORD = "76774";
     public static final String CONTRACT = "2599649622";
     public static final String TOKEN_NAME = "token";
-    public static final String DEFAULTCITYID = "272";
 
 }
