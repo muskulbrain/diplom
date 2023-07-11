@@ -69,6 +69,8 @@ public class API_Tests extends TestBase {
         String body = String.format("{\"ProductCode\":402860}");
         RequestSpecification request = given();
         Header Token = new Header("token", TestBase.token);
+        openBase();
+        loginUserByRest(Token.getValue());
         request.header(Token);
         request.log().all()
                 .body(body)

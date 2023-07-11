@@ -127,15 +127,32 @@ public class TestBase {
     }
 
     private void loginByRest() {
-        API_Step.authorize(TestBase.token);
-        WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("token", TestBase.token));
+        String token = TestBase.token;
+        API_Step.authorize(token);
+        WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("token", token));
         refresh();
         sleep(5000);
     }
 
+    private void loginByRest(String token) {
+        API_Step.authorize(token);
+        WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("token", token));
+        refresh();
+        sleep(5000);
+    }
+
+    //Авторизация с генерацией токена внутри метода
     @Step("Быстрая авторизация по rest")
     public TestBase loginUserByRest() {
         loginByRest();
+        $("[data-qa='VUSERBAR_NAME']").shouldBe(visible.because("Тест не смог авторизоваться через REST"), Duration.ofSeconds(5));
+        return this;
+    }
+
+    //Авторизация без генерации
+    @Step("Быстрая авторизация по rest")
+    public TestBase loginUserByRest(String token) {
+        loginByRest(token);
         $("[data-qa='VUSERBAR_NAME']").shouldBe(visible.because("Тест не смог авторизоваться через REST"), Duration.ofSeconds(5));
         return this;
     }
