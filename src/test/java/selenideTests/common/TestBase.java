@@ -134,11 +134,25 @@ public class TestBase {
         sleep(5000);
     }
 
+    private void wrongLoginByRest() {
+        String token = TestBase.token;
+        API_Step.wrongAuthorize(token);
+        WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("token", token));
+        refresh();
+        sleep(5000);
+    }
+
     private void loginByRest(String token) {
         API_Step.authorize(token);
         WebDriverRunner.getWebDriver().manage().addCookie(new Cookie("token", token));
         refresh();
         sleep(5000);
+    }
+
+    @Step("Быстрая авторизация по rest")
+    public TestBase wrongLoginUserByRest() {
+        wrongLoginByRest();
+        return this;
     }
 
     //Авторизация с генерацией токена внутри метода

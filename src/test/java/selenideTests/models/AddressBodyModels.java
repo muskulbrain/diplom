@@ -4,9 +4,11 @@ package selenideTests.models;
 import lombok.Data;
 
 @Data
-public class AddressBodyModel {
+public class AddressBodyModels {
 
-    String Index, CountryId, CityId, Street, House, Apartment, Entrance, Floor, isActive;
+    String Street, Index, House, Apartment, Entrance, Floor;
+    Integer CountryId, CityId;
+    Boolean isActive;
 
 }
 

@@ -6,11 +6,12 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import selenideTests.common.Constants;
 import selenideTests.common.TestBase;
+import selenideTests.models.AuthModels;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
+import static selenideTests.common.Constants.*;
 
 public class API_Step extends TestBase {
 
@@ -54,19 +55,36 @@ public class API_Step extends TestBase {
 
     //Подставить токен и авторизоваться
     public static void authorize(String token) {
-        String postData =
-                "{\n" +
-                        "\"Contract\": \"" + Constants.CONTRACT + "\",\n" +
-                        "\"Password\": \"" + Constants.PASSWORD + "\"\n" +
-                        "}";
+        AuthModels authBody = new AuthModels();
+        authBody.setContract(CONTRACT);
+        authBody.setPassword(PASSWORD);
+
         RequestSpecification request = returnRequest(token);
-        given().spec(request).body(postData)
+        given().spec(request).body(authBody)
                 .when().post(Configuration.baseUrl + "/api/v1/auth")
                 .then()
                 .log().ifError()
                 .contentType(JSON)
                 .assertThat()
                 .statusCode(201);
+    }
+
+    //Подставить токен и авторизоваться с неправильным паролем
+    public static void wrongAuthorize(String token) {
+        AuthModels authBody = new AuthModels();
+        authBody.setContract(CONTRACT);
+        authBody.setPassword(WRONGPASSWORD);
+
+        RequestSpecification request = returnRequest(token);
+        given().spec(request).body(authBody)
+                .queryParams("IsDebug", "1")
+                .when().post(Configuration.baseUrl + "/api/v1/auth")
+                .then()
+                .log().ifError()
+                .contentType(JSON)
+                .assertThat()
+                .statusCode(400);
+
     }
 
     //Вернуть токен
