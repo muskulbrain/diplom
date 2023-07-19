@@ -12,6 +12,7 @@ import selenideTests.models.AuthModels;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static selenideTests.common.Constants.*;
+import static selenideTests.helpers.CustomAllureListener.withCustomTemplates;
 
 public class API_Step extends TestBase {
 
@@ -41,6 +42,7 @@ public class API_Step extends TestBase {
         Header Token = new Header("token", TestBase.token);
         request.header(Token);
         request.log().all()
+                .filter(withCustomTemplates())
                 .body(body)
                 .contentType(JSON)
                 .when()
@@ -77,6 +79,7 @@ public class API_Step extends TestBase {
 
         RequestSpecification request = returnRequest(token);
         given().spec(request).body(authBody)
+                .filter(withCustomTemplates())
                 .queryParams("IsDebug", "1")
                 .when().post(Configuration.baseUrl + "/api/v1/auth")
                 .then()

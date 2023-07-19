@@ -10,6 +10,7 @@ import selenideTests.models.FavoriteBodyModels;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
+import static selenideTests.helpers.CustomAllureListener.withCustomTemplates;
 import static selenideTests.pages.API_Step.returnRequest;
 
 public class API_Tests extends TestBase {
@@ -40,16 +41,14 @@ public class API_Tests extends TestBase {
         loginUserByRest(Token.getValue());
         RequestSpecification request = returnRequest(Token.getValue());
         given().spec(request).body(addressBody)
+                .filter(withCustomTemplates())
                 .queryParams("IsDebug", "1")
                 .when()
-                .log().ifValidationFails()
-                .log().body()
                 .post(Configuration.baseUrl + "/api/v1/address")
                 .then()
+                .log().body()
                 .contentType(JSON)
-                //.statusCode(201)
-                .log().body();
-        //.assertThat();
+                .statusCode(201);
 
     }
 
@@ -65,14 +64,14 @@ public class API_Tests extends TestBase {
         loginUserByRest(Token.getValue());
         request.header(Token);
         request.log().all()
+                .filter(withCustomTemplates())
                 .body(favoriteBody)
                 .contentType(JSON)
                 .queryParams("IsDebug", "1")
                 .when()
-                .post("https://kz.siberianwellness.com/api/v1/productFavorite?RegionId=22&LanguageId=9&CityId=272&UserTimeZone=7")
+                .post(Configuration.baseUrl + "/api/v1/productFavorite")
                 .then()
-                .log().all()
-                //.log().body()
+                .log().body()
                 .statusCode(201);
     }
 }
