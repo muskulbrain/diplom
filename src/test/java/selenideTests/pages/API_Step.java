@@ -10,9 +10,9 @@ import selenideTests.common.TestBase;
 import selenideTests.models.AuthModels;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.http.ContentType.JSON;
 import static selenideTests.common.Constants.*;
-import static selenideTests.helpers.CustomAllureListener.withCustomTemplates;
+import static selenideTests.specs.AuthSpecs.*;
+import static selenideTests.specs.CartSpecs.*;
 
 public class API_Step extends TestBase {
 
@@ -22,13 +22,11 @@ public class API_Step extends TestBase {
 
     // Получить и записать переменные корзины
     public static void FillCartData() {
-        Response response = given().spec(returnRequest(TestBase.token))
-                .when().get("https://kz.siberianwellness.com/api/v1/cart")
+        Response response = given(fillCartRequestSpec).spec(returnRequest(TestBase.token))
+                .when().get(Configuration.baseUrl + "/api/v1/cart")
                 .then()
-                .log().all()
-                .contentType(JSON)
+                .spec(fillCartResponseSpec)
                 .assertThat()
-                .statusCode(200)
                 .extract().response();
         API_Step.cartId = response.path("List.Id");
         API_Step.cartPackageId = response.path("List.CartPackages.Id[0]");
@@ -38,20 +36,14 @@ public class API_Step extends TestBase {
     public static API_Step addProductAPI() {
         FillCartData();
         String body = String.format("{\"CartId\":%d,\"CartPackageId\":%d,\"ProductId\":16492,\"Quantity\":1}", API_Step.cartId, API_Step.cartPackageId);
-        RequestSpecification request = given();
+        RequestSpecification request = given(addCartRequestSpec);
         Header Token = new Header("token", TestBase.token);
-        request.header(Token);
-        request.log().all()
-                .filter(withCustomTemplates())
+        request.header(Token)
                 .body(body)
-                .contentType(JSON)
                 .when()
-                .post("https://kz.siberianwellness.com/api/v1/cartPackageProduct?RegionId=22&LanguageId=9&CityId=272&UserTimeZone=7&IsDebug=1")
-
+                .post(Configuration.baseUrl + "/api/v1/cartPackageProduct")
                 .then()
-                .log().status()
-                .log().body()
-                .statusCode(201);
+                .spec(addCartResponseSpec);
         return null;
     }
 
@@ -62,13 +54,14 @@ public class API_Step extends TestBase {
         authBody.setPassword(PASSWORD);
 
         RequestSpecification request = returnRequest(token);
-        given().spec(request).body(authBody)
-                .when().post(Configuration.baseUrl + "/api/v1/auth")
+        given(authRequestSpec).
+                spec(request).
+                body(authBody)
+                .when()
+                .post(Configuration.baseUrl + "/api/v1/auth")
                 .then()
-                .log().ifError()
-                .contentType(JSON)
-                .assertThat()
-                .statusCode(201);
+                .spec(authResponseSpec)
+                .assertThat();
     }
 
     //Подставить токен и авторизоваться с неправильным паролем
@@ -78,28 +71,27 @@ public class API_Step extends TestBase {
         authBody.setPassword(WRONGPASSWORD);
 
         RequestSpecification request = returnRequest(token);
-        given().spec(request).body(authBody)
-                .filter(withCustomTemplates())
-                .queryParams("IsDebug", "1")
-                .when().post(Configuration.baseUrl + "/api/v1/auth")
+        given(authRequestSpec)
+                .spec(request)
+                .body(authBody)
+                .when()
+                .post(Configuration.baseUrl + "/api/v1/auth")
                 .then()
-                .log().ifError()
-                .contentType(JSON)
-                .assertThat()
-                .statusCode(400);
+                .spec(wrongAuthResponseSpec)
+                .assertThat();
 
     }
 
     //Вернуть токен
     public static String returnToken() {
         String token = "";
-        token = given().spec(returnRequest(""))
-                .when().get("https://kz.siberianwellness.com/api/v1/myValidToken")
+        token = given(tokenRequestSpec)
+                .spec(returnRequest(""))
+                .when()
+                .get(Configuration.baseUrl + "/api/v1/myValidToken")
                 .then()
-                .log().ifError()
-                .contentType(JSON)
+                .spec(tokenResponseSpec)
                 .assertThat()
-                .statusCode(201)
                 .extract().body().jsonPath().getString("Model.Token");
         return token;
     }

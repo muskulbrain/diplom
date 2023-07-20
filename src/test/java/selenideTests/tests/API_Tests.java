@@ -9,9 +9,11 @@ import selenideTests.models.AddressBodyModels;
 import selenideTests.models.FavoriteBodyModels;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.http.ContentType.JSON;
-import static selenideTests.helpers.CustomAllureListener.withCustomTemplates;
 import static selenideTests.pages.API_Step.returnRequest;
+import static selenideTests.specs.AddressSpecs.addressRequestSpec;
+import static selenideTests.specs.AddressSpecs.addressResponseSpec;
+import static selenideTests.specs.FavoriteSpecs.favoriteRequestSpec;
+import static selenideTests.specs.FavoriteSpecs.favoriteResponseSpec;
 
 public class API_Tests extends TestBase {
 
@@ -40,15 +42,13 @@ public class API_Tests extends TestBase {
         openBase();
         loginUserByRest(Token.getValue());
         RequestSpecification request = returnRequest(Token.getValue());
-        given().spec(request).body(addressBody)
-                .filter(withCustomTemplates())
-                .queryParams("IsDebug", "1")
+        given(addressRequestSpec)
+                .spec(request)
+                .body(addressBody)
                 .when()
                 .post(Configuration.baseUrl + "/api/v1/address")
                 .then()
-                .log().body()
-                .contentType(JSON)
-                .statusCode(201);
+                .spec(addressResponseSpec);
 
     }
 
@@ -58,21 +58,16 @@ public class API_Tests extends TestBase {
         FavoriteBodyModels favoriteBody = new FavoriteBodyModels();
         favoriteBody.setProductCode(402860);
 
-        RequestSpecification request = given();
+        RequestSpecification request = given(favoriteRequestSpec);
         Header Token = new Header("token", TestBase.token);
         openBase();
         loginUserByRest(Token.getValue());
-        request.header(Token);
-        request.log().all()
-                .filter(withCustomTemplates())
+        request.header(Token)
                 .body(favoriteBody)
-                .contentType(JSON)
-                .queryParams("IsDebug", "1")
                 .when()
                 .post(Configuration.baseUrl + "/api/v1/productFavorite")
                 .then()
-                .log().body()
-                .statusCode(201);
+                .spec(favoriteResponseSpec);
     }
 }
 
